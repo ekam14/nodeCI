@@ -25,8 +25,9 @@ app.use(
 app.use(passport.initialize());    //to use passport in your app
 app.use(passport.session());       //for login sessions
 
-require('./routes/authRoutes')(app);
+require('./routes/authRoutes')(app);   // invoking the function there with app as an argument //
 require('./routes/blogRoutes')(app);
+require('./routes/uploadRoutes')(app);
 
 if (['production','ci'].includes(process.env.NODE_ENV)) {
   app.use(express.static('client/build'));

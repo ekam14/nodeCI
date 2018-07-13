@@ -14,7 +14,6 @@ module.exports = app => {
     res.send(blog);
   });
 
-
   app.get('/api/blogs', requireLogin, async (req, res) => {
     const blogs = await Blog.find({ _user: req.user.id }).cache({
       key: req.user.id
@@ -23,12 +22,11 @@ module.exports = app => {
     res.send(blogs);
   });
 
-
-// when entering new post //
-  app.post('/api/blogs', requireLogin,cleanCache, async (req, res) => {
-    const { title, content } = req.body;
+  app.post('/api/blogs', requireLogin, cleanCache, async (req, res) => {
+    const { title, content, imageUrl } = req.body;
 
     const blog = new Blog({
+      imageUrl,
       title,
       content,
       _user: req.user.id
